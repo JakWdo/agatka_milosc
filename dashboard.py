@@ -7,7 +7,7 @@ import uuid
 import re  # Do sprawdzania kryteriów
 
 # --- Konfiguracja strony ---
-st.set_page_config(layout="wide", page_title="Garnexpol HR Dashboard")
+st.set_page_config(layout="wide", page_title="Garnexpol System Motywacji Garncarzy")
 
 # --- Dane ---
 sample_employees = [
@@ -368,7 +368,7 @@ def check_criterion_status(criterion_text, employee_obj, performance_data, avg_c
 
 
 # --- Nawigacja ---
-st.sidebar.title("Menu Garnexpol HR")
+st.sidebar.title("Menu")
 selected_module = st.sidebar.radio("Wybierz moduł:",
                                    ["Arkusz Oceny Kompetencji", "Arkusz Potrzeb Rozwojowych (IPR)",
                                     "Arkusz Poziomu Realizacji Zadań", "Kryteria Awansu"])
