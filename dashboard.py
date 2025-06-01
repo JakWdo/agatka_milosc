@@ -13,14 +13,14 @@ st.set_page_config(layout="wide", page_title="Garnexpol System Motywacji Garncar
 sample_employees = [
     {"id": "E001", "name": "Janusz Lipka", "department": "Zarząd", "role": "Właściciel"},
     {"id": "E002", "name": "Piotr Lipka", "department": "Sprzedaż", "role": "Kierownik działu sprzedaży"},
-    {"id": "E003", "name": "Grażyna Lipka", "department": "Marketing", "role": "Koordynator marketingu"},
-    {"id": "E004", "name": "Andrzej Lipka", "department": "Magazyn", "role": "Koordynator magazynu"},
+    {"id": "E003", "name": "Grażyna Lipka", "department": "Marketing", "role": "Kierownik zespołu marketingowego"},
+    {"id": "E004", "name": "Andrzej Lipka", "department": "Magazyn", "role": "Specjalista ds. logistyki"},
     {"id": "E005", "name": "Anna Kowalska", "department": "Sprzedaż", "role": "Specjalista ds. sprzedaży"},
     {"id": "E006", "name": "Marek Nowak", "department": "Marketing", "role": "Specjalista ds. marketingu"},
     {"id": "E007", "name": "Katarzyna Zając", "department": "Magazyn", "role": "Magazynier"},
     {"id": "E008", "name": "Tomasz Wójcik", "department": "Sprzedaż", "role": "Młodszy specjalista ds. sprzedaży"},
     {"id": "E009", "name": "Grzegorz Draun", "department": "Marketing", "role": "Specjalista ds. marketingu"},
-    {"id": "E010", "name": "Rafał Buchający", "department": "Sprzedaż", "role": "Przedstawiciel handlowy"},
+    {"id": "E010", "name": "Rafał Buchański", "department": "Sprzedaż", "role": "Starszy specjalista ds. sprzedaży"},
     {"id": "E011", "name": "Karol Nawrotki", "department": "Magazyn", "role": "Starszy magazynier"},
 ]
 
@@ -44,7 +44,13 @@ employee_performance_data = {
         "trainings_completed_count": 3,
         "trainings_list": ["Zaawansowane techniki sprzedaży", "Negocjacje handlowe", "Obsługa systemu CRM"],
         "deklaracja_chęci_awansu": True,
-        "subiektywna_ocena_przełożonego": "Bardzo dobra"
+        "subiektywna_ocena_przełożonego": "Bardzo dobra",
+        # Dodatkowe dane do systemu wynagrodzeń
+        "sold_pots_monthly": 18,
+        "avg_call_duration_minutes": 8.5,
+        "positive_calls_percentage": 55,
+        "call_conversion_rate": 28,
+        "meetings_monthly": 6
     },
     "E006": {
         "staż_pracy_lata": 2.5,
@@ -73,7 +79,13 @@ employee_performance_data = {
         "trainings_completed_count": 1,
         "trainings_list": ["Podstawy sprzedaży"],
         "deklaracja_chęci_awansu": True,
-        "subiektywna_ocena_przełożonego": "Zadowalająca, z potencjałem"
+        "subiektywna_ocena_przełożonego": "Zadowalająca, z potencjałem",
+        # Dodatkowe dane do systemu wynagrodzeń
+        "sold_pots_monthly": 8,
+        "avg_call_duration_minutes": 5,
+        "positive_calls_percentage": 40,
+        "call_conversion_rate": 12,
+        "meetings_monthly": 2
     },
     "E009": {  # Grzegorz Draun - Marketing
         "staż_pracy_lata": 1.5,
@@ -84,7 +96,7 @@ employee_performance_data = {
         "deklaracja_chęci_awansu": True,
         "subiektywna_ocena_przełożonego": "Dobra"
     },
-    "E010": {  # Rafał Buchający - Sprzedaż
+    "E010": {  # Rafał Buchański - Sprzedaż
         "staż_pracy_lata": 2,
         "target_achievement_percentage": 105,
         "target_achievement_avg_YTD": 102,
@@ -94,7 +106,13 @@ employee_performance_data = {
         "trainings_completed_count": 2,
         "trainings_list": ["Obsługa klienta premium", "Prezentacje handlowe"],
         "deklaracja_chęci_awansu": True,
-        "subiektywna_ocena_przełożonego": "Dobra"
+        "subiektywna_ocena_przełożonego": "Dobra",
+        # Dodatkowe dane do systemu wynagrodzeń
+        "sold_pots_monthly": 12,
+        "avg_call_duration_minutes": 7,
+        "positive_calls_percentage": 48,
+        "call_conversion_rate": 22,
+        "meetings_monthly": 4
     },
     "E011": {  # Karol Nawrotki - Magazyn
         "staż_pracy_lata": 5,
@@ -103,6 +121,84 @@ employee_performance_data = {
         "internal_trainings_list": ["BHP", "Wózek widłowy", "System WMS"],
         "deklaracja_chęci_awansu": True,
         "subiektywna_ocena_przełożonego": "Bardzo dobra"
+    }
+}
+
+# --- Dane do systemu wynagrodzeń ---
+base_salary_ranges = {
+    "Zarząd": {"Właściciel": {"min": 15000, "max": 30000}},
+    "Sprzedaż": {
+        "Kierownik działu sprzedaży": {"min": 12000, "max": 19000},
+        "Manager regionalny": {"min": 12500, "max": 14000},
+        "Kierownik zespołu sprzedażowego": {"min": 10000, "max": 12000},
+        "Starszy specjalista ds. sprzedaży": {"min": 9500, "max":11000},
+        "Specjalista ds. sprzedaży": {"min": 8500, "max": 9500},
+        "Młodszy specjalista ds. sprzedaży": {"min": 7800, "max": 8500},
+        "Przedstawiciel handlowy": {"min": 5000, "max": 7500}
+    },
+    "Marketing": {
+        "Koordynator marketingu": {"min": 12000, "max": 16000},
+        "Kierownik zespołu marketingowego": {"min": 9500, "max": 11500},
+        "Starszy specjalista ds. marketingu": {"min": 7500, "max": 9000},
+        "Specjalista ds. marketingu": {"min": 6500, "max": 8000},
+        "Młodszy specjalista ds. marketingu": {"min": 5800, "max": 7000}
+    },
+    "Magazyn": {
+        "Koordynator magazynu": {"min": 12000, "max": 18000},
+        "Kierownik magazynu": {"min": 10000, "max": 13000},
+        "Specjalista ds. logistyki": {"min": 10000, "max": 14500},
+        "Starszy magazynier": {"min": 7200, "max": 8500},
+        "Magazynier": {"min": 6800, "max": 7800}
+    }
+}
+
+# Kryteria efektywnościowe (z prezentacji)
+performance_criteria = {
+    "Sprzedaż": {
+        "Liczba sprzedanych garnków": {
+            "metric": "sold_pots_monthly",
+            "levels": {"Słabo": 5, "Przeciętnie": 10, "Dobrze": 15, "Super": 20},
+            "points": {"Słabo": 0, "Przeciętnie": 5, "Dobrze": 10, "Super": 20}
+        },
+        "Średni czas rozmowy": {
+            "metric": "avg_call_duration_minutes",
+            "levels": {"Słabo": 0.5, "Przeciętnie": 3, "Dobrze": 6, "Super": 9},
+            "points": {"Słabo": 0, "Przeciętnie": 5, "Dobrze": 10, "Super": 15}
+        },
+        "Ilość pozytywnych rozmów": {
+            "metric": "positive_calls_percentage",
+            "levels": {"Słabo": 30, "Przeciętnie": 40, "Dobrze": 45, "Super": 50},
+            "points": {"Słabo": 0, "Przeciętnie": 5, "Dobrze": 10, "Super": 15}
+        },
+        "Skuteczność rozmów": {
+            "metric": "call_conversion_rate",
+            "levels": {"Słabo": 5, "Przeciętnie": 15, "Dobrze": 25, "Super": 30},
+            "points": {"Słabo": 0, "Przeciętnie": 10, "Dobrze": 15, "Super": 25}
+        },
+        "Liczba spotkań": {
+            "metric": "meetings_monthly",
+            "levels": {"Słabo": 0, "Przeciętnie": 2, "Dobrze": 4, "Super": 5},
+            "points": {"Słabo": 0, "Przeciętnie": 5, "Dobrze": 10, "Super": 15}
+        }
+    },
+    "Marketing": {
+        "ROI kampanii": {
+            "metric": "campaign_results_roi",
+            "levels": {"Słabo": "80%", "Przeciętnie": "100%", "Dobrze": "120%", "Super": "150%"},
+            "points": {"Słabo": 0, "Przeciętnie": 10, "Dobrze": 20, "Super": 30}
+        },
+        "Realizacja KPI": {
+            "metric": "kpi_realization_rate",
+            "levels": {"Słabo": 70, "Przeciętnie": 85, "Dobrze": 95, "Super": 100},
+            "points": {"Słabo": 0, "Przeciętnie": 10, "Dobrze": 20, "Super": 30}
+        }
+    },
+    "Magazyn": {
+        "Dokładność kompletacji": {
+            "metric": "order_accuracy_rate",
+            "levels": {"Słabo": 95, "Przeciętnie": 98, "Dobrze": 99, "Super": 99.5},
+            "points": {"Słabo": 0, "Przeciętnie": 15, "Dobrze": 25, "Super": 40}
+        }
     }
 }
 
@@ -367,14 +463,254 @@ def check_criterion_status(criterion_text, employee_obj, performance_data, avg_c
     return status  # Domyślnie N/A jeśli nie pasuje do żadnego
 
 
+def calculate_base_salary(department, role, years_of_experience):
+    """Oblicza wynagrodzenie podstawowe na podstawie doświadczenia."""
+    if department not in base_salary_ranges:
+        return 3000  # Domyślne minimalne
+
+    if role not in base_salary_ranges[department]:
+        return 3000  # Domyślne minimalne
+
+    salary_range = base_salary_ranges[department][role]
+    min_salary = salary_range["min"]
+    max_salary = salary_range["max"]
+
+    # Wzrost wynagrodzenia z doświadczeniem (max po 10 latach)
+    experience_factor = min(years_of_experience / 10, 1.0)
+    base_salary = min_salary + (max_salary - min_salary) * experience_factor
+
+    return round(base_salary, 2)
+
+
+def evaluate_performance_criterion(value, levels):
+    """Ocenia wartość kryterium względem poziomów."""
+    if isinstance(value, str):
+        # Dla wartości procentowych typu "150%"
+        numeric_value = float(value.rstrip('%'))
+        for level_name in ["Super", "Dobrze", "Przeciętnie", "Słabo"]:
+            level_threshold = levels[level_name]
+            if isinstance(level_threshold, str):
+                level_threshold = float(level_threshold.rstrip('%'))
+            if numeric_value >= level_threshold:
+                return level_name
+    else:
+        # Dla wartości numerycznych
+        for level_name in ["Super", "Dobrze", "Przeciętnie", "Słabo"]:
+            if value >= levels[level_name]:
+                return level_name
+    return "Słabo"
+
+
+def calculate_performance_points(employee_data, department):
+    """Oblicza punkty za osiągnięcia."""
+    if department not in performance_criteria:
+        return 0, {}
+
+    total_points = 0
+    criteria_results = {}
+
+    for criterion_name, criterion_data in performance_criteria[department].items():
+        metric_key = criterion_data["metric"]
+        if metric_key in employee_data:
+            value = employee_data[metric_key]
+            level = evaluate_performance_criterion(value, criterion_data["levels"])
+            points = criterion_data["points"][level]
+            total_points += points
+            criteria_results[criterion_name] = {
+                "value": value,
+                "level": level,
+                "points": points
+            }
+
+    return total_points, criteria_results
+
+
+def calculate_bonus(performance_points, base_salary):
+    """Oblicza premię na podstawie punktów."""
+    # Progi punktowe dla premii (% od wynagrodzenia podstawowego)
+    if performance_points >= 80:
+        bonus_percentage = 30
+    elif performance_points >= 60:
+        bonus_percentage = 20
+    elif performance_points >= 40:
+        bonus_percentage = 10
+    elif performance_points >= 20:
+        bonus_percentage = 5
+    else:
+        bonus_percentage = 0
+
+    bonus = base_salary * (bonus_percentage / 100)
+    return round(bonus, 2), bonus_percentage
+
+
 # --- Nawigacja ---
 st.sidebar.title("Menu")
 selected_module = st.sidebar.radio("Wybierz moduł:",
-                                   ["Arkusz Oceny Kompetencji", "Arkusz Potrzeb Rozwojowych (IPR)",
-                                    "Arkusz Poziomu Realizacji Zadań", "Kryteria Awansu"])
+                                   ["System Wynagrodzeń", "Arkusz Oceny Kompetencji",
+                                    "Arkusz Potrzeb Rozwojowych (IPR)", "Arkusz Poziomu Realizacji Zadań",
+                                    "Kryteria Awansu"])
+
+# --- Moduł: System Wynagrodzeń ---
+if selected_module == "System Wynagrodzeń":
+    st.header("💰 System Wynagrodzeń i Premiowania")
+
+    # Wybór pracownika
+    employee_names_salary = [e["name"] for e in sample_employees]
+    selected_employee_name = st.selectbox("Wybierz pracownika:", employee_names_salary, key="salary_employee")
+    selected_employee = next(e for e in sample_employees if e["name"] == selected_employee_name)
+    employee_data = employee_performance_data.get(selected_employee["id"], {})
+
+    st.markdown(f"**Dział:** {selected_employee['department']} | **Stanowisko:** {selected_employee['role']}")
+
+    # Dwie kolumny - kalkulator i podsumowanie
+    col1_salary, col2_salary = st.columns([1, 1])
+
+    with col1_salary:
+        st.subheader("📊 Kalkulator Wynagrodzenia")
+
+        # Doświadczenie
+        years_exp = employee_data.get("staż_pracy_lata", 0)
+        years_input = st.number_input("Staż pracy (lata):", min_value=0.0, max_value=50.0,
+                                      value=float(years_exp), step=0.5, key="years_exp_input")
+
+        # Oblicz wynagrodzenie podstawowe
+        base_salary = calculate_base_salary(selected_employee["department"],
+                                            selected_employee["role"], years_input)
+
+        st.metric("Wynagrodzenie podstawowe", f"{base_salary:,.2f} PLN")
+
+        # System premiowania
+        st.markdown("---")
+        st.subheader("🎯 System Premiowania")
+
+        if selected_employee["department"] in performance_criteria:
+            # Oblicz punkty i wyniki
+            points, criteria_results = calculate_performance_points(employee_data,
+                                                                    selected_employee["department"])
+
+            # Wyświetl kryteria
+            st.markdown("**Kryteria efektywnościowe:**")
+
+            for criterion_name, result in criteria_results.items():
+                with st.container(border=True):
+                    col_a, col_b, col_c = st.columns([2, 1, 1])
+                    col_a.markdown(f"**{criterion_name}**")
+                    col_b.metric("Wartość", str(result["value"]))
+
+                    # Kolorowanie poziomu
+                    level_colors = {
+                        "Super": "🟢",
+                        "Dobrze": "🔵",
+                        "Przeciętnie": "🟡",
+                        "Słabo": "🔴"
+                    }
+                    col_c.markdown(
+                        f"{level_colors.get(result['level'], '')} {result['level']} ({result['points']} pkt)")
+
+            # Podsumowanie punktów
+            st.markdown("---")
+            st.metric("Suma punktów", f"{points} pkt",
+                      help="Punkty decydują o wysokości premii")
+
+            # Oblicz premię
+            bonus, bonus_percentage = calculate_bonus(points, base_salary)
+
+            # Wizualizacja progów premiowych
+            st.markdown("**Progi premiowe:**")
+            progress_value = min(points / 100, 1.0)  # Normalizacja do 0-1
+            st.progress(progress_value)
+
+            thresholds_text = "🔴 0-19 pkt (0%) | 🟡 20-39 pkt (5%) | 🔵 40-59 pkt (10%) | 🟢 60-79 pkt (20%) | 🌟 80+ pkt (30%)"
+            st.caption(thresholds_text)
+
+        else:
+            st.info("Brak zdefiniowanych kryteriów premiowych dla tego działu.")
+            bonus = 0
+            bonus_percentage = 0
+
+    with col2_salary:
+        st.subheader("💸 Podsumowanie Wynagrodzenia")
+
+        # Składniki wynagrodzenia
+        with st.container(border=True):
+            st.markdown("### Struktura wynagrodzenia")
+
+            components_df = pd.DataFrame([
+                {"Składnik": "Wynagrodzenie podstawowe", "Kwota": f"{base_salary:,.2f} PLN"},
+                {"Składnik": f"Premia ({bonus_percentage}%)", "Kwota": f"{bonus:,.2f} PLN"},
+            ])
+
+            st.dataframe(components_df, use_container_width=True, hide_index=True)
+
+            total_salary = base_salary + bonus
+            st.markdown("---")
+            st.metric("**RAZEM BRUTTO**", f"{total_salary:,.2f} PLN",
+                      delta=f"+{bonus:,.2f} PLN" if bonus > 0 else None)
+
+        # Wykres struktury wynagrodzenia
+        st.markdown("---")
+        st.markdown("### Struktura wynagrodzenia")
+
+        fig_pie = go.Figure(data=[go.Pie(
+            labels=['Podstawa', 'Premia'],
+            values=[base_salary, bonus],
+            hole=.3,
+            marker_colors=['#1E90FF', '#32CD32']
+        )])
+
+        fig_pie.update_layout(
+            height=300,
+            showlegend=True,
+            margin=dict(l=0, r=0, t=30, b=0)
+        )
+
+        st.plotly_chart(fig_pie, use_container_width=True)
+
+        # Informacje o widełkach
+        if selected_employee["department"] in base_salary_ranges:
+            if selected_employee["role"] in base_salary_ranges[selected_employee["department"]]:
+                salary_range = base_salary_ranges[selected_employee["department"]][selected_employee["role"]]
+                st.info(f"**Widełki dla stanowiska:**\n"
+                        f"Min: {salary_range['min']:,} PLN | Max: {salary_range['max']:,} PLN")
+
+    # Tabela porównawcza dla działu
+    st.markdown("---")
+    st.subheader(f"📈 Porównanie w dziale: {selected_employee['department']}")
+
+    dept_employees = [e for e in sample_employees if e["department"] == selected_employee["department"]]
+    comparison_data = []
+
+    for emp in dept_employees:
+        emp_data = employee_performance_data.get(emp["id"], {})
+        emp_years = emp_data.get("staż_pracy_lata", 0)
+        emp_base = calculate_base_salary(emp["department"], emp["role"], emp_years)
+        emp_points, _ = calculate_performance_points(emp_data, emp["department"])
+        emp_bonus, emp_bonus_pct = calculate_bonus(emp_points, emp_base)
+
+        comparison_data.append({
+            "Pracownik": emp["name"],
+            "Stanowisko": emp["role"],
+            "Staż": f"{emp_years} lat",
+            "Podstawa": f"{emp_base:,.0f} PLN",
+            "Punkty": emp_points,
+            "Premia %": f"{emp_bonus_pct}%",
+            "Premia PLN": f"{emp_bonus:,.0f} PLN",
+            "Razem": f"{emp_base + emp_bonus:,.0f} PLN"
+        })
+
+    comparison_df = pd.DataFrame(comparison_data)
+    st.dataframe(comparison_df, use_container_width=True, hide_index=True,
+                 column_config={
+                     "Punkty": st.column_config.ProgressColumn(
+                         "Punkty",
+                         min_value=0,
+                         max_value=100,
+                         format="%d"
+                     )
+                 })
 
 # --- Moduł 1: Arkusz Oceny Kompetencji ---
-if selected_module == "Arkusz Oceny Kompetencji":
+elif selected_module == "Arkusz Oceny Kompetencji":
     st.header("📝 Arkusz Oceny Kompetencji")
     col1, col2 = st.columns([1, 2])
     with col1:  # Formularz oceny
