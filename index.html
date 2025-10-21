@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dla Agaty Stramskiej ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            z-index: 10;
+            padding: 20px;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .message {
+            font-size: 1.5em;
+            margin: 20px 0;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.5s;
+            line-height: 1.6;
+        }
+
+        .heart {
+            display: inline-block;
+            font-size: 2em;
+            color: #ff6b9d;
+            animation: heartbeat 1.5s infinite;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .heart:hover {
+            transform: scale(1.3);
+        }
+
+        .interactive-button {
+            background: linear-gradient(45deg, #ff6b9d, #c94b4b);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 20px 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        .interactive-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.6);
+        }
+
+        .interactive-button:active {
+            transform: scale(0.95);
+        }
+
+        .floating-hearts {
+            position: fixed;
+            font-size: 2em;
+            color: #ff6b9d;
+            pointer-events: none;
+            animation: floatUp 4s ease-out forwards;
+            opacity: 0;
+        }
+
+        .love-counter {
+            font-size: 2em;
+            margin: 30px 0;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1.5s;
+        }
+
+        .sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkleAnim 1s ease-out forwards;
+        }
+
+        .photo-frame {
+            width: 300px;
+            height: 300px;
+            margin: 30px auto;
+            border: 5px solid white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+            animation: shine 3s infinite;
+        }
+
+        .reasons-list {
+            text-align: left;
+            max-width: 600px;
+            margin: 30px auto;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 2.5s;
+        }
+
+        .reason-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            transform: translateX(-50px);
+            opacity: 0;
+            animation: slideInLeft 0.5s ease-out forwards;
+        }
+
+        .reason-item:nth-child(1) { animation-delay: 3s; }
+        .reason-item:nth-child(2) { animation-delay: 3.2s; }
+        .reason-item:nth-child(3) { animation-delay: 3.4s; }
+        .reason-item:nth-child(4) { animation-delay: 3.6s; }
+        .reason-item:nth-child(5) { animation-delay: 3.8s; }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.1); }
+            20%, 40% { transform: scale(1); }
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-1000px) rotate(360deg);
+            }
+        }
+
+        @keyframes sparkleAnim {
+            0% {
+                opacity: 1;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shine {
+            to {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .particle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 3s ease-out forwards;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            color: #667eea;
+            max-width: 500px;
+            text-align: center;
+            animation: popIn 0.5s ease-out;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .close-modal {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1em;
+        }
+
+        .close-modal:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dla Agaty Stramskiej <span class="heart">❤️</span></h1>
+
+        <p class="message">
+            Ta strona jest specjalnie dla Ciebie, żeby pokazać Ci jak bardzo Cię kocham!
+        </p>
+
+        <div class="photo-frame">
+            ❤️
+        </div>
+
+        <div class="love-counter">
+            Miłość: <span id="counter">0</span>%
+        </div>
+
+        <button class="interactive-button" onclick="showLove()">
+            Kliknij, żeby zobaczyć jak bardzo Cię kocham
+        </button>
+
+        <button class="interactive-button" onclick="createHeartExplosion()">
+            Serca dla Ciebie!
+        </button>
+
+        <button class="interactive-button" onclick="showReasons()">
+            Dlaczego Cię kocham?
+        </button>
+
+        <div class="reasons-list" id="reasons" style="display: none;">
+            <div class="reason-item">💖 Twój uśmiech rozświetla mój dzień</div>
+            <div class="reason-item">🌟 Jesteś moją inspiracją każdego dnia</div>
+            <div class="reason-item">🌸 Twoja dobroć sprawia, że świat jest piękniejszy</div>
+            <div class="reason-item">✨ Z Tobą każda chwila jest wyjątkowa</div>
+            <div class="reason-item">💕 Po prostu jesteś niesamowita!</div>
+        </div>
+    </div>
+
+    <div class="modal" id="loveModal">
+        <div class="modal-content">
+            <h2>Kocham Cię NIESKOŃCZENIE! ∞</h2>
+            <p style="font-size: 3em; margin: 20px 0;">❤️❤️❤️</p>
+            <p>Każdy dzień z Tobą jest prezentem. Jesteś najwspanialszą osobą na świecie!</p>
+            <button class="close-modal" onclick="closeModal()">❤️ Dziękuję ❤️</button>
+        </div>
+    </div>
+
+    <script>
+        // Licznik miłości automatycznie rośnie do 100%
+        let counter = 0;
+        const counterElement = document.getElementById('counter');
+
+        const counterInterval = setInterval(() => {
+            if (counter < 100) {
+                counter++;
+                counterElement.textContent = counter;
+            } else {
+                counterElement.textContent = '∞';
+                clearInterval(counterInterval);
+            }
+        }, 30);
+
+        // Tworzenie spadających serc w tle
+        setInterval(() => {
+            createFloatingHeart();
+        }, 800);
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-hearts';
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = window.innerHeight + 'px';
+            heart.style.fontSize = (Math.random() * 2 + 1) + 'em';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+
+        // Iskry przy ruchu myszki
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.9) {
+                createSparkle(e.clientX, e.clientY);
+            }
+        });
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1000);
+        }
+
+        function showLove() {
+            document.getElementById('loveModal').style.display = 'flex';
+            createHeartExplosion();
+        }
+
+        function closeModal() {
+            document.getElementById('loveModal').style.display = 'none';
+        }
+
+        function createHeartExplosion() {
+            const colors = ['❤️', '💖', '💕', '💗', '💓', '💝'];
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.textContent = colors[Math.floor(Math.random() * colors.length)];
+                    heart.className = 'particle';
+                    heart.style.left = window.innerWidth / 2 + 'px';
+                    heart.style.top = window.innerHeight / 2 + 'px';
+                    heart.style.fontSize = (Math.random() * 2 + 1) + 'em';
+
+                    const angle = (Math.PI * 2 * i) / 20;
+                    const distance = Math.random() * 300 + 200;
+                    const tx = Math.cos(angle) * distance;
+                    const ty = Math.sin(angle) * distance;
+
+                    heart.style.setProperty('--tx', tx + 'px');
+                    heart.style.setProperty('--ty', ty + 'px');
+
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }, i * 50);
+            }
+        }
+
+        function showReasons() {
+            const reasonsList = document.getElementById('reasons');
+            if (reasonsList.style.display === 'none') {
+                reasonsList.style.display = 'block';
+                createHeartExplosion();
+            } else {
+                reasonsList.style.display = 'none';
+            }
+        }
+
+        // Kliknięcie w serce na górze strony
+        document.querySelector('.heart').addEventListener('click', function() {
+            createHeartExplosion();
+        });
+
+        // Efekt przy kliknięciu w dowolnym miejscu
+        document.addEventListener('click', (e) => {
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    createSparkle(
+                        e.clientX + (Math.random() - 0.5) * 50,
+                        e.clientY + (Math.random() - 0.5) * 50
+                    );
+                }, i * 100);
+            }
+        });
+    </script>
+</body>
+</html>
